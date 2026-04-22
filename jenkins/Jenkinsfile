@@ -1,0 +1,38 @@
+pipeline {
+  agent any
+
+  stages {
+
+    stage('Build') {
+      steps {
+        sh 'cd app && mvn clean package -DskipTests'
+      }
+    }
+
+    stage('SonarQube') {
+      steps {
+        withSonarQubeEnv('SonarQube') {
+          sh 'mvn sonar:sonar -Dsonar.qualitygate.wait=true'
+        }
+      }
+    }
+
+    stage('Docker Build') {
+      steps {
+        sh 'docker build -t devsecops-app .'
+      }
+    }
+
+    stage('Trivy Scan') {
+      steps {
+        sh 'trivy image devsecops-app'
+      }
+    }
+
+    stage('Push to ECR') {
+      steps {
+        sh 'echo "push logic here"'
+      }
+    }
+  }
+}
