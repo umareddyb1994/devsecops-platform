@@ -1,0 +1,10 @@
+{
+  "metrics": {
+    "namespace": "DevSecOps/EKS",
+    "metrics_collected": {
+      "cpu": {},
+      "mem": {},
+      "disk": {}
+    }
+  }
+}
