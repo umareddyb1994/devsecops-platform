@@ -1,11 +1,11 @@
 resource "aws_ecr_repository" "app" {
-  name = "devsecops-app"
+  name = var.repo_name
 
   image_scanning_configuration {
     scan_on_push = true
   }
 
   tags = {
-    Name = "devsecops-ecr"
+    Name = var.repo_name
   }
 }
